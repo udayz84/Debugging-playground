@@ -15,6 +15,25 @@ body {
   margin-top: 0;
 }
 
+/* Playground header with timer top-right */
+.playground-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.playground-header-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.playground-header-right {
+  flex-shrink: 0;
+}
+
 nav {
   margin: 1rem 0;
 }
@@ -37,11 +56,57 @@ nav a:hover {
 
 .code-editor,
 .console,
-.timer,
 .challenge-card {
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 1rem;
+}
+
+/* Timer - compact in header */
+.timer {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  min-width: 140px;
+}
+
+.playground-header-right .timer {
+  padding: 0.4rem 0.6rem;
+  text-align: center;
+}
+
+.playground-header-right .timer h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.playground-header-right .timer .timer-display {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1.2;
+}
+
+.playground-header-right .timer .timer-controls {
+  margin-top: 0.4rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.playground-header-right .timer .timer-btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+}
+
+.playground-header-right .timer .timer-expired {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.7rem;
 }
 
 .console pre.console-output {
@@ -99,8 +164,76 @@ nav a:hover {
   gap: 0.5rem;
 }
 
-.timer span {
+.timer span.timer-display {
   font-variant-numeric: tabular-nums;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Timer when no duration (hidden state in header) */
+.playground-header-right .timer:has(.timer-display:only-child) {
+  min-width: auto;
+  padding: 0.35rem 0.5rem;
+}
+
+.playground-header-right .timer:not(:has(.timer-controls)) .timer-display {
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+.timer-expired {
+  color: #e53e3e;
+  font-weight: 600;
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.timer-btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.timer-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.timer-btn-stop {
+  background: #e53e3e;
+  color: white;
+}
+
+.timer-btn-stop:hover:not(:disabled) {
+  background: #c53030;
+}
+
+.timer-btn-resume {
+  background: #38a169;
+  color: white;
+}
+
+.timer-btn-resume:hover:not(:disabled) {
+  background: #2f855a;
+}
+
+.timer-btn-reset {
+  background: #718096;
+  color: white;
+}
+
+.timer-btn-reset:hover:not(:disabled) {
+  background: #4a5568;
 }
 
 /* Home sections */
@@ -163,9 +296,49 @@ nav a:hover {
   border-left: 4px solid #646cff;
 }
 
+.playground-question-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
 .playground-question-title {
-  margin: 0 0 0.25rem 0;
+  margin: 0;
   font-size: 1.25rem;
+}
+
+.difficulty-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.difficulty-easy {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.difficulty-medium {
+  background: #feebc8;
+  color: #7c2d12;
+}
+
+.difficulty-hard {
+  background: #fed7d7;
+  color: #742a2a;
+}
+
+.answer-correct-badge {
+  margin-left: auto;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #c6f6d5;
+  color: #22543d;
 }
 
 .playground-question-desc {
